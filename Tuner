@@ -24,7 +24,34 @@ void setup() {
   Serial.begin(9600);
 }
 
-void tuning() {
+void tuning(double freq) {
+
+   if (freq <= E_low + 5 && freq >= E_low - 5)
+   {Serial.print("Yep. Thats E\n");}
+   if (freq < E_low - 5)
+    {
+      Serial.print("Tune up for E.\n");
+    }
+    if(freq > E_low + 5 && freq < A - 14)
+    {
+      Serial.print("Tune down for E.\n");
+    }
+
+   if (freq <= A + 5 && freq >= A - 5)
+   {Serial.print("Yep. Thats A\n");}
+   
+   if (freq <= D + 5 && freq >= D - 5)
+   {Serial.print("Yep. Thats D\n");}
+
+   if (freq <= G + 5 && freq >= G - 5)
+   {Serial.print("Yep. Thats G\n");}
+
+    if (freq <= B + 6 && freq >= B - 6)
+   {Serial.print("Yep. Thats B\n");}
+
+    if (freq <= E_high + 8 && freq >= E_high - 8)
+   {Serial.print("Yep. Thats e\n");}
+}
 
 void loop() {
    loop_count++;
@@ -50,13 +77,14 @@ if (timePeriod > 0 )
     if(loop_count == 1000)
     {
       frequency = frequency / 1000.0000;
-      
-      Serial.print("\nFreq:");
-      Serial.print(frequency);
-      
+      tuning(frequency);
+      //Serial.print("\nFreq:");
+      //Serial.print(frequency);
+      //Serial.print("\n");
       frequency = 0;
       loop_count = 0;
     }
   }
   
 }
+
