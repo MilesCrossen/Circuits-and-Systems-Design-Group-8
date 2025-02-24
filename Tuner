@@ -1,0 +1,62 @@
+%//Arduino Frequency Detector%
+
+// Define the analog input pin
+const int analogPin = A0; //INPUT PIN
+const int analogPin2 = A2;
+// Store the value of the analog signal
+int sensorValue = 0;
+int loop_count = 0;
+bool zero = false;
+unsigned long lastTime = 0;
+double timePeriod = 0;
+unsigned long sum_freq = 0;
+double frequency = 0;
+
+const int E_low = 82;
+const int A = 110;
+const int D = 147;
+const int G = 196;
+const int B = 247;
+const int E_high = 330; 
+
+void setup() {
+  // Start serial communication with the Serial Monitor
+  Serial.begin(9600);
+}
+
+void tuning() {
+
+void loop() {
+   loop_count++;
+  // Read the input on the analog pin (0-1023)
+  sensorValue = analogRead(analogPin);
+  if( !zero && sensorValue <= 5)
+  {
+    zero = true;
+    unsigned long currentTime = millis();
+    timePeriod = currentTime - lastTime;
+    lastTime = currentTime;
+    
+  }
+  
+  if( zero && sensorValue > 6)
+  {
+    zero = false;
+  }
+
+if (timePeriod > 0 )
+  {
+    frequency = frequency + (1000 / (timePeriod));
+    if(loop_count == 1000)
+    {
+      frequency = frequency / 1000.0000;
+      
+      Serial.print("\nFreq:");
+      Serial.print(frequency);
+      
+      frequency = 0;
+      loop_count = 0;
+    }
+  }
+  
+}
