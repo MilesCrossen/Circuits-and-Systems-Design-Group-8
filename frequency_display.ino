@@ -1,5 +1,4 @@
-// Rowan Turner, 22302171
-// Last Updated: 27/02/25
+// Sarah McCormack 27/03
 // Module that displays a simulated frequency spectrogram on the MDOB128064BV-WS OLED screen
 
 #include "U8glib.h"
